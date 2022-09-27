@@ -1,0 +1,50 @@
+.root {
+  background-color: #fff;
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 30px; 
+}
+
+
+.inner {
+  display: flex;
+  justify-content: space-between; 
+
+  a {
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 396px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.logo {
+  background-color: black;
+  color: #fff;
+  font-weight: 700;
+  line-height: 35px;
+  text-transform: uppercase;
+  letter-spacing: 0.15px;
+  border-radius: 5px;
+  padding: 0 10px;
+  text-decoration: none;
+  text-align: center;
+  
+  &:hover {
+    background-color: #4361ee;
+  }
+
+  @media (max-width: 396px) {
+    width: 120px;
+    
+  }
+}
+
+.buttons {
+  a {
+    text-decoration: none;
+  }
+}
