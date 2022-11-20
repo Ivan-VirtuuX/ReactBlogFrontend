@@ -2,7 +2,7 @@
   "name": "react-blog",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Ivan-VirtuuX.github.io/React-Blog",
+  "homepage": "https://Ivan-VirtuuX.github.io/ReactBlogFrontend",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
