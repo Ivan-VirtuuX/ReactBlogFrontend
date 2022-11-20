@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://fathomless-thicket-31979.herokuapp.com/",
+  baseURL: "https://reactblogbackend-production.up.railway.app",
 });
 
 instance.interceptors.request.use((config) => {

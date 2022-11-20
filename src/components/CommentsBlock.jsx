@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { SideBlock } from './SideBlock';
+import { SideBlock } from './SideBlock/SideBlock';
 import ListItem from '@mui/material/ListItem';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
@@ -15,7 +15,7 @@ import { fetchComments } from '../redux/slices/comment';
 import avatar from './../assets/img/ava.png';
 import { useStyles } from '../pages/Home/Home';
 
-export const CommentsBlock = ({ children, newComment, width }) => {
+export const CommentsBlock = ({ children, newComment, width, comments, user, isLoading }) => {
   const { id } = useParams();
   const [postComments, setPostComments] = useState([]);
   const dispatch = useDispatch();
@@ -43,9 +43,9 @@ export const CommentsBlock = ({ children, newComment, width }) => {
   };
 
   useEffect(() => {
-    dispatch(fetchComments(id));
-
     fetchLastComments();
+
+    dispatch(fetchComments(id));
 
     if (id) {
       fetchData();

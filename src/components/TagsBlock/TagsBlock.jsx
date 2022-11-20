@@ -6,7 +6,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import TagIcon from '@mui/icons-material/Tag';
 import ListItemText from '@mui/material/ListItemText';
 import Skeleton from '@mui/material/Skeleton';
-import { SideBlock } from '../SideBlock';
+import { SideBlock } from '../SideBlock/SideBlock';
 import { Link } from 'react-router-dom';
 
 export const TagsBlock = ({ items, isLoading = true }) => {

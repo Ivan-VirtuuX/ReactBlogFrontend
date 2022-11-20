@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import { useStyles } from '../../pages/Home/Home';
 import { useParams } from 'react-router-dom';
-import axios from './../../axios';
+import axios from '../../axios';
 
 export const SideBlock = ({ title, children }) => {
   const classes = useStyles();

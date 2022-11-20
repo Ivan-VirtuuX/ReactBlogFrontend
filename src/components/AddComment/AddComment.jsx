@@ -10,7 +10,7 @@ import { createComment } from '../../redux/slices/comment';
 import avatar from './../../assets/img/ava.png';
 import { fetchAuthMe } from '../../redux/slices/auth';
 
-export const Index = ({ setCommentUpdateText }) => {
+export const AddComment = ({ setCommentUpdateText }) => {
   const { id } = useParams();
 
   const [commentText, setCommentText] = useState('');
@@ -20,8 +20,8 @@ export const Index = ({ setCommentUpdateText }) => {
   const onSubmit = async () => {
     try {
       setCommentUpdateText(commentText);
-      dispatch(createComment({ id, commentText }));
       setCommentText('');
+      if (id) dispatch(createComment({ id, commentText }));
     } catch (err) {
       console.warn(err);
       alert('Ошибка при отправке комментария');

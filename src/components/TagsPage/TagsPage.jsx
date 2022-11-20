@@ -2,9 +2,9 @@
 import React, { useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import { useDispatch, useSelector } from 'react-redux';
-import { Post } from '../../components/Post';
+import { Post } from '../Post/Post';
 import { TagsBlock } from '../TagsBlock/TagsBlock';
-import { CommentsBlock } from '../../components/CommentsBlock';
+import { CommentsBlock } from '../CommentsBlock';
 import { fetchPosts, fetchTags } from '../../redux/slices/posts';
 import { useParams } from 'react-router-dom';
 import { PostSkeleton } from '../Post/Skeleton';
@@ -44,11 +44,7 @@ export const TagsPage = () => {
                 key={index}
                 id={obj._id}
                 title={obj.title}
-                imageUrl={
-                  obj.imageUrl
-                    ? `https://fathomless-thicket-31979.herokuapp.com${obj.imageUrl}`
-                    : ''
-                }
+                imageUrl={obj.cloudImageUrl ? obj.cloudImageUrl : ''}
                 user={obj.user}
                 createdAt={obj.createdAt}
                 viewsCount={obj.viewsCount}

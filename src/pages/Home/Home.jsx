@@ -4,7 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Grid from '@mui/material/Grid';
 import { useDispatch, useSelector } from 'react-redux';
-import { Post } from '../../components/Post';
+import { Post } from '../../components/Post/Post';
 import { TagsBlock } from '../../components/TagsBlock/TagsBlock';
 import { CommentsBlock } from '../../components/CommentsBlock';
 import { fetchPosts, fetchTags } from '../../redux/slices/posts';
@@ -102,11 +102,7 @@ export const Home = () => {
                     key={index}
                     id={obj._id}
                     title={obj.title}
-                    imageUrl={
-                      obj.imageUrl
-                        ? `https://fathomless-thicket-31979.herokuapp.com${obj.imageUrl}`
-                        : ''
-                    }
+                    imageUrl={obj.cloudImageUrl ? obj.cloudImageUrl : ''}
                     user={obj.user}
                     createdAt={obj.createdAt}
                     viewsCount={obj.viewsCount}
@@ -129,11 +125,7 @@ export const Home = () => {
                       key={index}
                       id={obj._id}
                       title={obj.title}
-                      imageUrl={
-                        obj.imageUrl
-                          ? `https://fathomless-thicket-31979.herokuapp.com${obj.imageUrl}`
-                          : ''
-                      }
+                      imageUrl={obj.cloudImageUrl ? obj.cloudImageUrl : ''}
                       user={obj.user}
                       createdAt={obj.createdAt}
                       viewsCount={obj.viewsCount}

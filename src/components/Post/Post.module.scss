@@ -119,7 +119,7 @@ $blue: #4361ee;
   border: 1px solid #dedede;
   border-radius: 6px;
   overflow: hidden;
-  margin-bottom: 15px;
+  margin-bottom: 15px !important;
   width: 520px;
   margin: 0 auto;
 
@@ -131,12 +131,13 @@ $blue: #4361ee;
     margin-left: 50px;
   }
 
-  @media (max-width: 520px){
+  @media (max-width: 520px) {
     width: 422px
   }
-  @media (max-width: 420px){
+
+  @media (max-width: 420px) {
     width: 322px
-  }  
+  }
 }
 
 .skeletonUser {

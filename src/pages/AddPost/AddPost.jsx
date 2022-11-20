@@ -11,6 +11,7 @@ import { selectIsAuth } from '../../redux/slices/auth';
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useRef } from 'react';
 import axios from '../../axios';
+import cloudAxios from '../../cloudAxios';
 
 export const AddPost = () => {
   const { id } = useParams();
@@ -23,13 +24,20 @@ export const AddPost = () => {
   const inputFileRef = useRef(null);
   const isEditing = Boolean(id);
   const [comments, setComments] = useState([]);
+  const [imageFormData, setImageFormData] = useState([]);
+  let cloudImageUrl = '';
 
-  const handleChangeFile = async (event) => {
+  const handleChangeFile = async (files) => {
     try {
       const formData = new FormData();
-      const file = event.target.files[0];
-      formData.append('image', file);
+
+      formData.append('file', files[0]);
+      formData.append('upload_preset', 'cqxjdiz4');
+
+      setImageFormData(formData);
+
       const { data } = await axios.post('/upload', formData);
+
       setImageUrl(data.url);
     } catch (err) {
       console.warn(err);
@@ -47,9 +55,15 @@ export const AddPost = () => {
 
   const onSubmit = async () => {
     try {
+      if (imageUrl) {
+        const { data } = await cloudAxios.post(`/upload`, imageFormData);
+
+        cloudImageUrl = data.secure_url;
+      }
+
       const fields = {
         title,
-        imageUrl,
+        cloudImageUrl,
         tags,
         comments,
         text,
@@ -82,7 +96,7 @@ export const AddPost = () => {
         .then(({ data }) => {
           setTitle(data.title);
           setText(data.text);
-          setImageUrl(data.imageUrl);
+          setImageUrl(data.cloudImageUrl);
           setTags(data.tags.join(','));
           setComments(data.comments);
         })
@@ -121,17 +135,24 @@ export const AddPost = () => {
         style={{ marginRight: 15 }}>
         Загрузить превью
       </Button>
-      <input ref={inputFileRef} type="file" onChange={handleChangeFile} hidden />
+      <input
+        ref={inputFileRef}
+        type="file"
+        onChange={(e) => handleChangeFile(e.target.files)}
+        hidden
+      />
       {imageUrl && (
         <>
-          <Button variant="contained" color="error" onClick={onClickRemoveImage}>
-            Удалить
-          </Button>
+          <div className={styles.delete}>
+            <Button variant="contained" color="error" onClick={onClickRemoveImage}>
+              Удалить
+            </Button>
+          </div>
           <img
             className={styles.image}
-            src={`https://fathomless-thicket-31979.herokuapp.com${imageUrl}`}
+            src={id ? imageUrl : `https://reactblogbackend-production.up.railway.app${imageUrl}`}
             alt="Uploaded"
-          />{' '}
+          />
         </>
       )}
       <br />
