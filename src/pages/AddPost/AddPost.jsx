@@ -15,17 +15,18 @@ import cloudAxios from '../../cloudAxios';
 
 export const AddPost = () => {
   const { id } = useParams();
+
   const navigate = useNavigate();
+
   const isAuth = useSelector(selectIsAuth);
+
   const [text, setText] = useState('');
   const [title, setTitle] = useState('');
   const [tags, setTags] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
   const inputFileRef = useRef(null);
   const isEditing = Boolean(id);
   const [comments, setComments] = useState([]);
-  const [imageFormData, setImageFormData] = useState([]);
-  let cloudImageUrl = '';
+  const [cloudImageUrl, setCloudImageUrl] = useState('');
 
   const handleChangeFile = async (files) => {
     try {
@@ -34,11 +35,9 @@ export const AddPost = () => {
       formData.append('file', files[0]);
       formData.append('upload_preset', 'cqxjdiz4');
 
-      setImageFormData(formData);
+      const { data } = await cloudAxios.post(`/upload`, formData);
 
-      const { data } = await axios.post('/upload', formData);
-
-      setImageUrl(data.url);
+      setCloudImageUrl(data.secure_url);
     } catch (err) {
       console.warn(err);
       alert('Ошибка при загрузке файла');
@@ -46,7 +45,7 @@ export const AddPost = () => {
   };
 
   const onClickRemoveImage = () => {
-    setImageUrl('');
+    setCloudImageUrl('');
   };
 
   const onChange = useCallback((value) => {
@@ -55,12 +54,6 @@ export const AddPost = () => {
 
   const onSubmit = async () => {
     try {
-      if (imageUrl) {
-        const { data } = await cloudAxios.post(`/upload`, imageFormData);
-
-        cloudImageUrl = data.secure_url;
-      }
-
       const fields = {
         title,
         cloudImageUrl,
@@ -96,7 +89,6 @@ export const AddPost = () => {
         .then(({ data }) => {
           setTitle(data.title);
           setText(data.text);
-          setImageUrl(data.cloudImageUrl);
           setTags(data.tags.join(','));
           setComments(data.comments);
         })
@@ -141,18 +133,14 @@ export const AddPost = () => {
         onChange={(e) => handleChangeFile(e.target.files)}
         hidden
       />
-      {imageUrl && (
+      {cloudImageUrl && (
         <>
           <div className={styles.delete}>
             <Button variant="contained" color="error" onClick={onClickRemoveImage}>
               Удалить
             </Button>
           </div>
-          <img
-            className={styles.image}
-            src={id ? imageUrl : `https://reactblogbackend-production.up.railway.app${imageUrl}`}
-            alt="Uploaded"
-          />
+          <img className={styles.image} src={cloudImageUrl} alt="Uploaded" />
         </>
       )}
       <br />
