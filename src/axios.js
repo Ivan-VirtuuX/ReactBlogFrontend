@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://reactblogbackend-production.up.railway.app",
+  baseURL: "https://reactblog-backend.onrender.com",
 });
 
 instance.interceptors.request.use((config) => {
